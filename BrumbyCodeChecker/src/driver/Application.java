@@ -163,6 +163,7 @@ public class Application {
 		ArrayList<TokenizedMethod> methods = new ArrayList<TokenizedMethod>();
 		ArrayList<TokenizedMethod> similarMethods = new ArrayList<TokenizedMethod>();
 		ArrayList<Token> file_tokens, method_tokens;
+		HashMap<Integer,HashMap<Integer,Double>> distanceMatrix = new HashMap<Integer,HashMap<Integer,Double>>();
 
 		String current_file;
 		String qualified_name;
@@ -244,6 +245,10 @@ public class Application {
 								
 								// add to list of similar methods
 								similarMethods.add(new TokenizedMethod(qualified_name, method.getLocation(), perc));
+								
+								HashMap<Integer,Double> innerHashMap =new HashMap<Integer,Double>();//creating a inner HashMap that will be applied to a new key
+								innerHashMap.put(method_indices[0], perc);//Putting the similar method and percent in the inner hashMap
+								distanceMatrix.put(method_indices[1], innerHashMap);//Putting the method and the hashMap together
 							}
 						}
 						// Add to list of unique methods to keep checking
